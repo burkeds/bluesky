@@ -28,13 +28,16 @@ from .protocols import (
     Locatable,
     Location,
     Movable,
+    P,
     PartialEvent,
     Preparable,
     Readable,
     Reading,
     Stageable,
     Status,
+    StatusWithResult,
     Stoppable,
+    T,
     Triggerable,
     check_supports,
 )
@@ -607,13 +610,13 @@ def trigger(
 
 @plan
 def execute(
-    obj: Executable,
+    obj: Executable[P, T],
     group: Hashable | None = None,
     wait: bool = False,
-    execute_args: tuple[Any, ...] | None = None,
-    execute_kwargs: dict[str, Any] | None = None,
-) -> MsgGenerator[Status]:
-    ret = yield Msg("execute", obj, group=group, execute_args=execute_args, execute_kwargs=execute_kwargs)
+    *args: P.args,
+    **kwargs: P.kwargs,
+) -> MsgGenerator[StatusWithResult[T]]:
+    ret = yield Msg("execute", obj, group=group, execute_args=args, execute_kwargs=kwargs)
     if wait:
         yield Msg("wait", None, group=group)
     return ret
