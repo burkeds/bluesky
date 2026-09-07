@@ -551,10 +551,11 @@ def check_supports(obj: T, protocol: type[Any]) -> T:
 # Descriptor with previous name on imports for backwards compatibility.
 Descriptor = DataKey
 
+
 @runtime_checkable
-class Executable(Protocol[P, T]):
+class Executable(Protocol[P, R_co]):
     @abstractmethod
-    def execute(self, *args: P.args, **kwargs: P.kwargs) -> StatusWithResult[T]:
+    def execute(self, *args: P.args, **kwargs: P.kwargs) -> StatusWithResult[R_co]:
         """Execute a remote procedural call on a device
 
         execute should be a method that wraps an RPC which takes any

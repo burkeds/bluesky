@@ -607,11 +607,11 @@ def trigger(
 
 @plan
 def execute(
-        obj: Executable,
-        group: Hashable | None = None,
-        wait: bool = False,
-        execute_args: tuple[Any, ...] | None = None,
-        execute_kwargs: dict[str, Any] | None = None,
+    obj: Executable,
+    group: Hashable | None = None,
+    wait: bool = False,
+    execute_args: tuple[Any, ...] | None = None,
+    execute_kwargs: dict[str, Any] | None = None,
 ) -> MsgGenerator[Status]:
     ret = yield Msg("execute", obj, group=group, execute_args=execute_args, execute_kwargs=execute_kwargs)
     if wait:
