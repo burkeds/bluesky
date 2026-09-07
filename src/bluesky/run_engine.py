@@ -2256,9 +2256,9 @@ class RunEngine:
             Msg('execute', obj, *args, **kwargs)
         """
         obj = check_supports(msg.obj, Executable)
-        args = msg.execute_args
-        kwargs = dict(msg.execute_kwargs)
-        group = msg.group
+        group = msg.kwargs.get("group")
+        args = msg.kwargs.get("execute_args", ())
+        kwargs = dict(msg.kwargs.get("execute_kwargs", {}))
 
         ret = obj.execute(*args, **kwargs)
         self._add_status_to_group(obj=obj, status_object=ret, group=group, action="execute")
