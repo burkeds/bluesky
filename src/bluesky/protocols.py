@@ -534,7 +534,7 @@ Descriptor = DataKey
 @runtime_checkable
 class Executable(Protocol[P, T]):
     @abstractmethod
-    def execute(self, *args, **kwargs) -> StatusWithResult[T]:
+    def execute(self, *args: P.args, **kwargs: P.kwargs) -> StatusWithResult[T]:
         """Execute a remote procedural call on a device
 
         execute should be a method that wraps an RPC which takes any
